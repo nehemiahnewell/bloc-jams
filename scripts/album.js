@@ -30,6 +30,25 @@ var albumMarconi = {
   ]
 };
 
+// MyFakeAlbum
+var albumJohny = {
+  title: 'The Birds',
+  artist: 'Johny bo Bonny banna fana mo Monny, be by bo Bonny, Johny',
+  label: 'EM',
+  year: '2222',
+  albumArtUrl: 'assets/images/album_covers/20.png',
+  songs: [
+    { title: 'Badbye Light my old Enemy', duration: '2:23' },
+    { title: "When You're Normal", duration: '3:03' },
+    { title: 'Grumbling in the Sun', duration: '4:54'},
+    { title: 'Overpass of Laughs', duration: '1:11' },
+    { title: 'Good to the Skin', duration: '3:33'}
+  ]
+};
+
+var albums = [albumMarconi, albumJohny, albumPicasso]
+var currentTrack = 0;
+var cover = document.getElementsByClassName('album-cover-art');
 
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
@@ -60,7 +79,19 @@ var setCurrentAlbum = function(album) {
     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
   }
 };
- 
+
 window.onload = function() {
-  setCurrentAlbum(albumPicasso);
+  setCurrentAlbum(albums[0]);
 };
+
+cover[0].addEventListener('click', function(event) {
+    if (currentTrack === 2)
+    {
+      currentTrack = 0;
+    }
+    else
+    {
+      currentTrack++;
+    }
+    setCurrentAlbum(albums[currentTrack]);
+  });
