@@ -15,6 +15,31 @@ var setSong = function(songNumber) {
   setVolume(currentVolume);
 };
 
+var togglePlayFromPlayerBar = function() {
+  console.log("got into togllePlayFromPlayerBar");
+  if (currentlyPlayingSongNumber == null) {
+    console.log("It doesn't see a song.");
+		return;
+	}
+	else
+	{
+	  console.log("It sees a song.")
+	  if (currentSoundFile.isPaused()) {
+	    console.log("Which is paused, and it tries to play it.")
+      $(this).html(pauseButtonTemplate);
+      $('.main-controls .play-pause').html(playerBarPauseButton);
+      currentSoundFile.play();
+    }
+    else
+    {
+      console.log("which is playing, and it tries to pause.")
+      $(this).html(playButtonTemplate);
+      $('.main-controls .play-pause').html(playerBarPlayButton);
+      currentSoundFile.pause();   
+    }
+	}
+};
+
 var setVolume = function(volume) {
   if (currentSoundFile) {
     currentSoundFile.setVolume(volume);
@@ -191,6 +216,7 @@ var currentAlbum = null;
 var currentSoundFile = null;
 var currentVolume = 80;
 
+var $playButton = $('.main-controls .play-pause');
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
@@ -198,4 +224,5 @@ $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  $playButton.click(togglePlayFromPlayerBar);
 });
